@@ -1,12 +1,12 @@
-export interface User {
+export interface Application {
     id: string;
     date: string;
     name: string;
     phone: string;
-    note: string;
+    note?: string;
 }
 
-export interface UserResponseApi {
+export interface ApplicationResponseApi {
     id: string;
     date: number;
     name: string;

@@ -2,29 +2,34 @@ import { useEffect, useState } from 'react';
 import { formatLocalDate } from '@/lib/formatLocalDate';
 import {
     fetchApplicationsApi,
-    type User,
-    type UserResponseApi,
+    type Application,
+    type ApplicationResponseApi,
 } from '@/entities';
 
 export const useApplicationsPage = () => {
-    const [users, setUsers] = useState<User[]>([]);
+    const [applications, setApplications] = useState<Application[]>([]);
 
     useEffect(() => {
         fetchApplicationsApi()
             .then((res) => {
                 if (!res || !res.ok) {
-                    setUsers([]);
+                    setApplications([]);
                 }
 
                 return res.json();
             })
-            .then((data: UserResponseApi[]) => {
+            .then((data: ApplicationResponseApi[]) => {
                 if (data) {
-                    const usersLoaded: User[] = data.map((user) => {
-                        return { ...user, date: formatLocalDate(user.date) };
-                    });
+                    const applicationsLoaded: Application[] = data.map(
+                        (application) => {
+                            return {
+                                ...application,
+                                date: formatLocalDate(application.date),
+                            };
+                        },
+                    );
 
-                    setUsers(usersLoaded);
+                    setApplications(applicationsLoaded);
                 }
             })
             .catch((error) => {
@@ -34,5 +39,5 @@ export const useApplicationsPage = () => {
             });
     }, []);
 
-    return { users };
+    return { applications };
 };

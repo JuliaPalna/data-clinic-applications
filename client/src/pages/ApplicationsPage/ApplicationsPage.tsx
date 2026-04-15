@@ -10,7 +10,7 @@ import {
 import { useApplicationsPage } from './useApplicationsPage';
 
 export const ApplicationsPage = () => {
-    const { users } = useApplicationsPage();
+    const { applications } = useApplicationsPage();
 
     return (
         <>
@@ -25,17 +25,17 @@ export const ApplicationsPage = () => {
                         <TableHead>Проблема</TableHead>
                     </TableRow>
                 </TableHeader>
-                {users.length > 0 && (
+                {applications.length > 0 && (
                     <TableBody>
-                        {users.map((user) => {
+                        {applications.map((application) => {
                             return (
-                                <TableRow key={user.id}>
+                                <TableRow key={application.id}>
                                     <TableCell className="font-medium">
-                                        {user.date}
+                                        {application.date}
                                     </TableCell>
-                                    <TableCell>{user.name}</TableCell>
-                                    <TableCell>{user.phone}</TableCell>
-                                    <TableCell>{user.note}</TableCell>
+                                    <TableCell>{application.name}</TableCell>
+                                    <TableCell>{application.phone}</TableCell>
+                                    <TableCell>{application.note}</TableCell>
                                 </TableRow>
                             );
                         })}
@@ -43,7 +43,7 @@ export const ApplicationsPage = () => {
                 )}
             </Table>
 
-            {users.length === 0 && (
+            {applications.length === 0 && (
                 <p className="mt-10 text-xl text-muted-foreground text-center">
                     Заявок нет
                 </p>
