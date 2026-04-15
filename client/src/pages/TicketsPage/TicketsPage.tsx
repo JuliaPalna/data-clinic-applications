@@ -7,10 +7,10 @@ import {
     TableHeader,
     TableRow,
 } from '@/components';
-import { useApplicationsPage } from './useApplicationsPage';
+import { useTicketsPage } from './useTicketsPage';
 
-export const ApplicationsPage = () => {
-    const { applications } = useApplicationsPage();
+export const TicketsPage = () => {
+    const { tickets } = useTicketsPage();
 
     return (
         <>
@@ -25,17 +25,17 @@ export const ApplicationsPage = () => {
                         <TableHead>Проблема</TableHead>
                     </TableRow>
                 </TableHeader>
-                {applications.length > 0 && (
+                {tickets.length > 0 && (
                     <TableBody>
-                        {applications.map((application) => {
+                        {tickets.map((ticket) => {
                             return (
-                                <TableRow key={application.id}>
+                                <TableRow key={ticket.id}>
                                     <TableCell className="font-medium">
-                                        {application.date}
+                                        {ticket.date}
                                     </TableCell>
-                                    <TableCell>{application.name}</TableCell>
-                                    <TableCell>{application.phone}</TableCell>
-                                    <TableCell>{application.note}</TableCell>
+                                    <TableCell>{ticket.name}</TableCell>
+                                    <TableCell>{ticket.phone}</TableCell>
+                                    <TableCell>{ticket.description}</TableCell>
                                 </TableRow>
                             );
                         })}
@@ -43,7 +43,7 @@ export const ApplicationsPage = () => {
                 )}
             </Table>
 
-            {applications.length === 0 && (
+            {tickets.length === 0 && (
                 <p className="mt-10 text-xl text-muted-foreground text-center">
                     Заявок нет
                 </p>

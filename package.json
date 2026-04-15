@@ -1,7 +1,7 @@
 {
     "name": "backend-clinic",
     "version": "1.0.0",
-    "description": "backend-clinic-applications",
+    "description": "backend-clinic-tickets",
     "scripts": {
         "start": "node index.js",
         "serve": "nodemon index.js"

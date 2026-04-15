@@ -17,10 +17,10 @@ import {
     InputMaskPhone,
     Textarea,
 } from '@/components';
-import { useApplicationPage } from './useApplicationPage';
+import { useTicketPage } from './useTicketPage';
 
-export const ApplicationPage = () => {
-    const { form, submissionStatus, onSubmit } = useApplicationPage();
+export const TicketPage = () => {
+    const { form, submissionStatus, onSubmit } = useTicketPage();
 
     return (
         <Center>
@@ -35,16 +35,16 @@ export const ApplicationPage = () => {
                     >
                         <FieldGroup>
                             <Controller
-                                name="userName"
+                                name="name"
                                 control={form.control}
                                 render={({ field, fieldState }) => (
                                     <Field data-invalid={fieldState.invalid}>
-                                        <FieldLabel htmlFor="form-rhf-demo-user-name">
+                                        <FieldLabel htmlFor="form-ticket-user-name">
                                             ФИО
                                         </FieldLabel>
                                         <Input
                                             {...field}
-                                            id="form-rhf-demo-user-name"
+                                            id="form-ticket-user-name"
                                             aria-invalid={fieldState.invalid}
                                             placeholder="Введите полное ФИО"
                                             autoComplete="off"
@@ -63,12 +63,12 @@ export const ApplicationPage = () => {
                                 control={form.control}
                                 render={({ field, fieldState }) => (
                                     <Field data-invalid={fieldState.invalid}>
-                                        <FieldLabel htmlFor="form-rhf-demo-phone">
+                                        <FieldLabel htmlFor="form-ticket-phone">
                                             Телефон
                                         </FieldLabel>
                                         <InputMaskPhone
                                             field={field}
-                                            id="form-rhf-demo-phone"
+                                            id="form-ticket-phone"
                                             aria-invalid={fieldState.invalid}
                                             placeholder="+7-000-000-00-00"
                                             autoComplete="tel"
@@ -83,16 +83,16 @@ export const ApplicationPage = () => {
                             />
 
                             <Controller
-                                name="note"
+                                name="description"
                                 control={form.control}
                                 render={({ field, fieldState }) => (
                                     <Field data-invalid={fieldState.invalid}>
-                                        <FieldLabel htmlFor="form-rhf-demo-note">
+                                        <FieldLabel htmlFor="form-ticket-description">
                                             Опишите вашу проблему
                                         </FieldLabel>
                                         <Textarea
                                             {...field}
-                                            id="form-rhf-demo-note"
+                                            id="form-ticket-description"
                                             aria-invalid={fieldState.invalid}
                                             placeholder="Введите описание"
                                             autoComplete="off"

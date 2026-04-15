@@ -1,13 +1,13 @@
 import * as z from 'zod';
 
-export const applicationSchema = z.object({
-    userName: z
+export const ticketSchema = z.object({
+    name: z
         .string()
         .trim()
         .min(5, 'ФИО должно содержать не менее 5 символов.')
         .max(32, 'ФИО должно содержать не более 32 символов.')
         .regex(/^[а-яА-ЯёЁ\s]+$/, 'Некорректные символы'),
-    note: z
+    description: z
         .string()
         .trim()
         .max(100, 'Описание должно содержать не более 100 символов')
@@ -22,4 +22,4 @@ export const applicationSchema = z.object({
         ),
 });
 
-export type ApplicationSchema = z.input<typeof applicationSchema>;
+export type TicketSchema = z.input<typeof ticketSchema>;

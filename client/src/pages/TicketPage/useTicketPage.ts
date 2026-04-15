@@ -1,13 +1,9 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import {
-    addApplicationsApi,
-    applicationSchema,
-    type ApplicationSchema,
-} from '@/entities';
+import { addTicketsApi, ticketSchema, type TicketSchema } from '@/entities';
 
-export const useApplicationPage = () => {
+export const useTicketPage = () => {
     const [submissionStatus, setSubmissionStatus] = useState<{
         error: null | string;
         submitted: boolean;
@@ -16,18 +12,18 @@ export const useApplicationPage = () => {
         submitted: false,
     });
 
-    const form = useForm<ApplicationSchema>({
-        resolver: zodResolver(applicationSchema),
+    const form = useForm<TicketSchema>({
+        resolver: zodResolver(ticketSchema),
         mode: 'onBlur',
         defaultValues: {
-            userName: '',
+            name: '',
             phone: '',
         },
     });
 
-    async function onSubmit(data: ApplicationSchema): Promise<void> {
+    async function onSubmit(data: TicketSchema): Promise<void> {
         try {
-            const response = await addApplicationsApi(data);
+            const response = await addTicketsApi(data);
 
             if (!response.ok) {
                 setSubmissionStatus({

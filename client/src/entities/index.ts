@@ -1,2 +1,2 @@
-export * from './applications';
+export * from './ticket';
 export * from './authorization';

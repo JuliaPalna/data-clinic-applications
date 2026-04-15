@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router';
-import { ApplicationsPage, ApplicationPage, LoginPage } from '../pages';
+import { TicketsPage, TicketPage, LoginPage } from '../pages';
 
 export const RoutesContainer = () => {
     const routes = [
@@ -9,11 +9,11 @@ export const RoutesContainer = () => {
         },
         {
             path: '/',
-            element: <ApplicationPage />,
+            element: <TicketPage />,
         },
         {
-            path: '/applications',
-            element: <ApplicationsPage />,
+            path: '/tickets',
+            element: <TicketsPage />,
         },
     ];
 
