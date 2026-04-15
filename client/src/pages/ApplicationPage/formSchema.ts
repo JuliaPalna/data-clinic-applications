@@ -1,6 +1,6 @@
 import * as z from 'zod';
 
-export const schemaApplication = z.object({
+export const applicationSchema = z.object({
     userName: z
         .string()
         .trim()
@@ -22,4 +22,4 @@ export const schemaApplication = z.object({
         ),
 });
 
-export type SchemaApplication = z.input<typeof schemaApplication>;
+export type ApplicationSchema = z.input<typeof applicationSchema>;

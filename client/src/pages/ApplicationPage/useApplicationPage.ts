@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { schemaApplication, type SchemaApplication } from './formSchema';
+import { applicationSchema, type ApplicationSchema } from './formSchema';
 import { addApplicationsApi } from '@/entities';
 
 export const useApplicationPage = () => {
@@ -13,8 +13,8 @@ export const useApplicationPage = () => {
         submitted: false,
     });
 
-    const form = useForm<SchemaApplication>({
-        resolver: zodResolver(schemaApplication),
+    const form = useForm<ApplicationSchema>({
+        resolver: zodResolver(applicationSchema),
         mode: 'onBlur',
         defaultValues: {
             userName: '',
@@ -22,7 +22,7 @@ export const useApplicationPage = () => {
         },
     });
 
-    async function onSubmit(data: SchemaApplication): Promise<void> {
+    async function onSubmit(data: ApplicationSchema): Promise<void> {
         try {
             const response = await addApplicationsApi(data);
 

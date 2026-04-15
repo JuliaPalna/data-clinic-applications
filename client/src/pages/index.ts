@@ -1,3 +1,3 @@
 export * from './ApplicationPage/ApplicationPage';
 export * from './ApplicationsPage/ApplicationsPage';
-export * from './LoginPage/LoginPage';
+export * from './AuthorizationPage/AuthorizationPage';
