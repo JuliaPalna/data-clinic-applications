@@ -1,5 +1,5 @@
 import { BASE_URL } from '@/constants/index';
-import type { ApplicationSchema } from '@/pages/ApplicationPage/formSchema';
+import type { ApplicationSchema } from './schema';
 
 export const fetchApplicationsApi = async (): Promise<Response> => {
     return await fetch(`${BASE_URL}/applications`);

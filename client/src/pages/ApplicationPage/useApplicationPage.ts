@@ -1,8 +1,11 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { applicationSchema, type ApplicationSchema } from './formSchema';
-import { addApplicationsApi } from '@/entities';
+import {
+    addApplicationsApi,
+    applicationSchema,
+    type ApplicationSchema,
+} from '@/entities';
 
 export const useApplicationPage = () => {
     const [submissionStatus, setSubmissionStatus] = useState<{
