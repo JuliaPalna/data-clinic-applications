@@ -7,7 +7,7 @@ export interface Ticket {
 }
 
 export interface TicketResponseApi {
-    id: string;
+    _id: string;
     date: number;
     name: string;
     phone: string;

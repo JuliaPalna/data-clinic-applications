@@ -1,4 +1,6 @@
 import { Controller } from 'react-hook-form';
+import { cn } from '@/lib/utils';
+import { IMaskInput } from 'react-imask';
 import {
     Alert,
     AlertDescription,
@@ -14,7 +16,6 @@ import {
     FieldGroup,
     FieldLabel,
     Input,
-    InputMaskPhone,
     Textarea,
 } from '@/components';
 import { useTicketPage } from './useTicketPage';
@@ -66,12 +67,30 @@ export const TicketPage = () => {
                                         <FieldLabel htmlFor="form-ticket-phone">
                                             Телефон
                                         </FieldLabel>
-                                        <InputMaskPhone
-                                            field={field}
+                                        <IMaskInput
                                             id="form-ticket-phone"
                                             aria-invalid={fieldState.invalid}
                                             placeholder="+7-000-000-00-00"
                                             autoComplete="tel"
+                                            value={field.value || ''}
+                                            type="tel"
+                                            mask="+7-000-000-00-00"
+                                            lazy={false}
+                                            placeholderChar="_"
+                                            inputMode="tel"
+                                            data-slot="input"
+                                            onAccept={(value) =>
+                                                field.onChange(value)
+                                            }
+                                            onBlur={field.onBlur}
+                                            className={cn(`h-8 w-full min-w-0 rounded-lg border border-input bg-transparent
+                                                        px-2.5 py-1 text-base transition-colors
+                                                        outline-none placeholder:text-muted-foreground
+                                                        focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50
+                                                        disabled:pointer-events-none disabled:cursor-not-allowed
+                                                        disabled:bg-input/50 disabled:opacity-50
+                                                        aria-invalid:border-destructive aria-invalid:ring-3
+                                                        aria-invalid:ring-destructive/20 md:text-sm`)}
                                         />
                                         {fieldState.invalid && (
                                             <FieldError
@@ -124,11 +143,7 @@ export const TicketPage = () => {
 
                 <CardFooter>
                     {submissionStatus.error && (
-                        <Alert
-                            variant="destructive"
-                            className="max-w-md"
-                            // border-amber-200 bg-amber-50 text-amber-900
-                        >
+                        <Alert variant="destructive" className="max-w-md">
                             <AlertDescription>
                                 {submissionStatus.error}
                             </AlertDescription>

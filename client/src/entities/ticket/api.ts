@@ -1,12 +1,11 @@
-import { BASE_URL } from '@/constants/index';
 import type { TicketSchema } from './schema';
 
-export const fetchTicketsApi = async (): Promise<Response> => {
-    return await fetch(`${BASE_URL}/tickets`);
+export const fetchTicketsApi = async () => {
+    return await fetch(`/api/tickets`);
 };
 
-export const addTicketsApi = async (data: TicketSchema): Promise<Response> => {
-    return await fetch(`${BASE_URL}/tickets`, {
+export const addTicketsApi = (data: TicketSchema) => {
+    fetch(`/api/tickets`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

@@ -4,7 +4,6 @@ export * from './card';
 export * from './center';
 export * from './field';
 export * from './input';
-export * from './InputMaskPhone';
 export * from './table';
 export * from './textarea';
 export * from './title';

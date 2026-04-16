@@ -6,11 +6,13 @@ import {
     TableHead,
     TableHeader,
     TableRow,
+    Alert,
+    AlertDescription,
 } from '@/components';
 import { useTicketsPage } from './useTicketsPage';
 
 export const TicketsPage = () => {
-    const { tickets } = useTicketsPage();
+    const { tickets, error } = useTicketsPage();
 
     return (
         <>
@@ -43,10 +45,12 @@ export const TicketsPage = () => {
                 )}
             </Table>
 
-            {tickets.length === 0 && (
-                <p className="mt-10 text-xl text-muted-foreground text-center">
-                    Заявок нет
-                </p>
+            {error && (
+                <div className="mt-10 ">
+                    <Alert className="max-w-md">
+                        <AlertDescription>{error}</AlertDescription>
+                    </Alert>
+                </div>
             )}
         </>
     );

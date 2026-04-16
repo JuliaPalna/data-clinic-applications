@@ -1,41 +1,22 @@
 import { useEffect, useState } from 'react';
-import { formatLocalDate } from '@/lib/formatLocalDate';
-import {
-    fetchTicketsApi,
-    type Ticket,
-    type TicketResponseApi,
-} from '@/entities';
+import { type Ticket, getTickets } from '@/entities';
 
 export const useTicketsPage = () => {
     const [tickets, setTickets] = useState<Ticket[]>([]);
+    const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        fetchTicketsApi()
-            .then((res) => {
-                if (!res || !res.ok) {
-                    setTickets([]);
-                }
+        getTickets().then(({ res, error }) => {
+            if (error) {
+                setTickets([]);
+                setError(error);
+                return;
+            }
 
-                return res.json();
-            })
-            .then((data: TicketResponseApi[]) => {
-                if (data) {
-                    const ticketsLoaded: Ticket[] = data.map((ticket) => {
-                        return {
-                            ...ticket,
-                            date: formatLocalDate(ticket.date),
-                        };
-                    });
-
-                    setTickets(ticketsLoaded);
-                }
-            })
-            .catch((error) => {
-                const messageError =
-                    error instanceof Error ? error.message : 'Ошибка загрузки';
-                console.error(messageError);
-            });
+            setTickets(res);
+            setError(null);
+        });
     }, []);
 
-    return { tickets };
+    return { tickets, error };
 };
