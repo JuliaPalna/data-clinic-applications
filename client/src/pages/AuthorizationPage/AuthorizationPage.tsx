@@ -42,6 +42,7 @@ export const LoginPage = () => {
                                         </FieldLabel>
                                         <Input
                                             {...field}
+                                            type="email"
                                             id="form-login-email"
                                             aria-invalid={fieldState.invalid}
                                             placeholder="Введите email"
@@ -66,6 +67,7 @@ export const LoginPage = () => {
                                         </FieldLabel>
                                         <Input
                                             {...field}
+                                            type="password"
                                             id="form-login-password"
                                             aria-invalid={fieldState.invalid}
                                             placeholder="Введите пароль"
@@ -86,10 +88,12 @@ export const LoginPage = () => {
                                     className="w-full"
                                     disabled={
                                         !form.formState.isValid ||
-                                        form.formState.isLoading
+                                        form.formState.isSubmitting
                                     }
                                 >
-                                    Войти
+                                    {form.formState.isSubmitting
+                                        ? 'Вход...'
+                                        : 'Войти'}
                                 </Button>
                             </Field>
                         </FieldGroup>

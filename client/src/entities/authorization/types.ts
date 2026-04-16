@@ -1,9 +1,8 @@
-export interface UserAuth {
-    id: string;
+export interface AuthUser {
     email: string;
 }
 
-export interface AuthResponseApi {
-    id: string;
-    email: string;
+export interface AuthResponse {
+    email?: string;
+    error?: string;
 }

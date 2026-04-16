@@ -1,5 +1,5 @@
 const { default: chalk } = require('chalk');
-const Ticket = require('../../models/Ticket.js');
+const Ticket = require('../models/Ticket.js');
 
 async function addTicket(data) {
     await Ticket.create({ ...data, date: Date.now() });

@@ -14,10 +14,11 @@ export const useTicketPage = () => {
 
     const form = useForm<TicketSchema>({
         resolver: zodResolver(ticketSchema),
-        mode: 'onBlur',
+        mode: 'onChange',
         defaultValues: {
             name: '',
             phone: '',
+            description: '',
         },
     });
 
@@ -33,12 +34,12 @@ export const useTicketPage = () => {
                 return;
             }
 
+            form.reset();
+
             setSubmissionStatus({
                 error: null,
                 submitted: true,
             });
-
-            form.reset();
         } catch {
             setSubmissionStatus({
                 error: 'Ошибка отправки. Повторите запрос',

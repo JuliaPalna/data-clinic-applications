@@ -82,6 +82,7 @@ export const TicketPage = () => {
                                             onAccept={(value) =>
                                                 field.onChange(value)
                                             }
+                                            onChange={field.onChange}
                                             onBlur={field.onBlur}
                                             className={cn(`h-8 w-full min-w-0 rounded-lg border border-input bg-transparent
                                                         px-2.5 py-1 text-base transition-colors

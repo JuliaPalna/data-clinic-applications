@@ -1,19 +1,22 @@
 import { authorizationApi } from './api';
 import type { AuthorizationSchema } from './schema';
-import type { AuthResponseApi } from './types';
+import type { AuthResponse } from './types';
 
-export const authorization = async (authData: AuthorizationSchema) => {
-    const response = await authorizationApi(authData);
+export const authorization = async (
+    authData: AuthorizationSchema,
+): Promise<AuthResponse> => {
+    try {
+        const response = await authorizationApi(authData);
+        const data: AuthResponse = await response.json();
 
-    if (!response.ok) {
-        throw new Error('Ошибка запроса. Повторите позже');
+        if (!response.ok) {
+            const message = data?.error || 'Ошибка: пользователь не найден';
+            throw new Error(message);
+        }
+
+        return data;
+    } catch (error) {
+        const message = error instanceof Error ? error.message : String(error);
+        throw new Error(message);
     }
-
-    const user: AuthResponseApi = await response.json();
-
-    if (!user) {
-        throw new Error('Пользователь не найден. Проверьте email и пароль');
-    }
-
-    return user;
 };
