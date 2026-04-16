@@ -3,14 +3,12 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const path = require('path');
 const { default: chalk } = require('chalk');
-
+const { PORT } = require('./server/constants/index');
 const {
     getTickets,
     addTicket,
     printListTickets,
 } = require('./server/models/controllers/ticket.controller');
-
-const PORT = 3004;
 
 const app = express();
 
@@ -31,11 +29,6 @@ app.get('/tickets', async (req, res) => {
     await printListTickets(tickets);
     res.json(tickets);
 });
-
-// // Все остальные маршруты отдаём React (SPA)
-// app.get('/:any', (req, res) => {
-//     res.sendFile(path.join(__dirname, 'client/dist', 'index.html'));
-// });
 
 mongoose
     .connect('mongodb://user:mongopass@localhost:27017/clinic?authSource=admin')
