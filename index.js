@@ -53,7 +53,7 @@ app.get('/login', (req, res) => {
     } catch (error) {
         res.status(404).json({
             success: false,
-            error: 'Not found',
+            error: 'Ошибка 404: Страница не найдена',
         });
     }
 });
@@ -62,14 +62,14 @@ app.get('/logout', (req, res) => {
     res.cookie('token', { httpOnly: true });
 });
 
-app.post('/tickets', async (req, res) => {
+app.post('/api/tickets', async (req, res) => {
     try {
         const newTicket = await addTicket(req.body);
         res.json(newTicket);
     } catch (error) {
         res.status(404).json({
             success: false,
-            error: error instanceof Error ? error.message : String(error),
+            error: 'Страница не найдена',
         });
     }
 });
@@ -82,13 +82,13 @@ app.get('/api/tickets', auth, async (req, res) => {
     res.json(tickets);
 });
 
-app.get('/tickets', (req, res) => {
+app.get('/tickets', auth, (req, res) => {
     try {
         res.sendFile(path.join(__dirname, 'client/dist', 'index.html'));
     } catch (error) {
-        res.status(404).json({
+        res.status(401).json({
             success: false,
-            error: 'Not found',
+            error: 'Нет прав доступа',
         });
     }
 });

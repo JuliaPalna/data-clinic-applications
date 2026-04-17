@@ -8,11 +8,32 @@ import {
     TableRow,
     Alert,
     AlertDescription,
+    Center,
 } from '@/components';
 import { useTicketsPage } from './useTicketsPage';
 
-export const TicketsPage = () => {
-    const { tickets, error } = useTicketsPage();
+export const TicketsPage: React.FC = () => {
+    const { tickets, error, isLoading } = useTicketsPage();
+
+    if (isLoading) {
+        return (
+            <Center>
+                <Alert variant="default">
+                    <AlertDescription>Загрузка...</AlertDescription>
+                </Alert>
+            </Center>
+        );
+    }
+
+    if (error?.includes('401')) {
+        return (
+            <Center>
+                <Alert variant="destructive">
+                    <AlertDescription>Нет прав доступа</AlertDescription>
+                </Alert>
+            </Center>
+        );
+    }
 
     return (
         <>

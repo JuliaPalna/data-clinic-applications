@@ -17,7 +17,7 @@ import {
 } from '@/components';
 import { useAuthorizationPage } from './useAuthorizationPage';
 
-export const LoginPage = () => {
+export const LoginPage: React.FC = () => {
     const { form, errorServer, onSubmit } = useAuthorizationPage();
 
     return (

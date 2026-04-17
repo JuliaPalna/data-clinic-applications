@@ -1,10 +1,10 @@
 import type { TicketSchema } from './schema';
 
-export const fetchTicketsApi = async () => {
+export const fetchTicketsApi = async (): Promise<Response> => {
     return await fetch(`/api/tickets`);
 };
 
-export const addTicketsApi = async (data: TicketSchema) => {
+export const addTicketApi = async (data: TicketSchema): Promise<Response> => {
     return await fetch(`/api/tickets`, {
         method: 'POST',
         headers: {

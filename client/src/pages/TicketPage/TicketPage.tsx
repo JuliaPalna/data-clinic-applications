@@ -20,7 +20,7 @@ import {
 } from '@/components';
 import { useTicketPage } from './useTicketPage';
 
-export const TicketPage = () => {
+export const TicketPage: React.FC = () => {
     const { form, submissionStatus, onSubmit } = useTicketPage();
 
     return (

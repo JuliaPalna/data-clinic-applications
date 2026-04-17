@@ -9,7 +9,14 @@ export const getTickets = async (): Promise<{
     try {
         const response = await fetchTicketsApi();
 
-        if (!response || !response.ok) {
+        if (response.status === 401) {
+            return {
+                error: '401: Нет прав доступа',
+                res: [],
+            };
+        }
+
+        if (!response.ok) {
             return {
                 error: 'Ошибка. повторите позже',
                 res: [],
