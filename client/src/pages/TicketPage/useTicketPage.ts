@@ -18,7 +18,6 @@ export const useTicketPage = () => {
         defaultValues: {
             name: '',
             phone: '',
-            description: '',
         },
     });
 
@@ -35,6 +34,7 @@ export const useTicketPage = () => {
             }
 
             form.reset();
+            form.resetField('description');
 
             setSubmissionStatus({
                 error: null,

@@ -11,5 +11,5 @@ export interface TicketResponseApi {
     date: number;
     name: string;
     phone: string;
-    description: string;
+    description?: string;
 }

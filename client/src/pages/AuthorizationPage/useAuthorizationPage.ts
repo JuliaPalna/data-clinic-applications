@@ -26,6 +26,7 @@ export const useAuthorizationPage = () => {
             setErrorServer(null);
             await authorization(data);
             form.reset();
+            sessionStorage.setItem('isAuthorization', 'true');
             navigate('/tickets');
         } catch (error) {
             const message =

@@ -58,8 +58,13 @@ app.get('/login', (req, res) => {
     }
 });
 
-app.get('/logout', (req, res) => {
-    res.cookie('token', { httpOnly: true });
+app.post('/api/logout', (req, res) => {
+    try {
+        res.cookie('token', '', { httpOnly: true });
+        res.status(200).json({ success: true });
+    } catch (error) {
+        console.log(error);
+    }
 });
 
 app.post('/api/tickets', async (req, res) => {

@@ -11,3 +11,9 @@ export const authorizationApi = (
         body: JSON.stringify(data),
     });
 };
+
+export const logoutApi = (): Promise<Response> => {
+    return fetch(`/api/logout`, {
+        method: 'POST',
+    });
+};
