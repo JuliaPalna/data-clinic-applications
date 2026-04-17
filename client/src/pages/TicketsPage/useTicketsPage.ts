@@ -6,6 +6,20 @@ export const useTicketsPage = () => {
     const [error, setError] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(true);
 
+    const [filteredTickets, setFilteredTickets] = useState<Ticket[]>(tickets);
+
+    const onSearchByPhone = ({ searchValue }: { searchValue: string }) => {
+        if (tickets.length === 0) {
+            return;
+        }
+
+        const existedTickets: Ticket[] = tickets.filter((ticket) => {
+            return ticket.phone.includes(searchValue);
+        });
+
+        setFilteredTickets(existedTickets);
+    };
+
     useEffect(() => {
         getTickets()
             .then(({ res, error }) => {
@@ -16,6 +30,7 @@ export const useTicketsPage = () => {
                 }
 
                 setTickets(res);
+                setFilteredTickets(res);
                 setError(null);
             })
             .finally(() => {
@@ -23,5 +38,5 @@ export const useTicketsPage = () => {
             });
     }, []);
 
-    return { tickets, error, isLoading };
+    return { filteredTickets, error, isLoading, onSearchByPhone };
 };

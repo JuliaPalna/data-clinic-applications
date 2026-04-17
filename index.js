@@ -20,8 +20,6 @@ const auth = require('./server/middleware/auth');
 const app = express();
 
 app.use(express.json()); // сервер автоматически парсит JSON-данные в теле запросов
-// app.use(express.static('dist')); // Готовая сборка React
-// Включает раздачу статических файлов (CSS, JS, изображения) из папки "public"
 
 // Парсит данные форм в формате URL-кодировки
 // ({ extended: true } включает поддержку вложенных объектов)
@@ -63,7 +61,10 @@ app.post('/api/logout', (req, res) => {
         res.cookie('token', '', { httpOnly: true });
         res.status(200).json({ success: true });
     } catch (error) {
-        console.log(error);
+        res.status(500).json({
+            success: false,
+            error: 'Ошибка при выходе. Повторите позже',
+        });
     }
 });
 
@@ -82,9 +83,16 @@ app.post('/api/tickets', async (req, res) => {
 app.use(auth);
 
 app.get('/api/tickets', auth, async (req, res) => {
-    const tickets = await getTickets();
-    await printListTickets(tickets);
-    res.json(tickets);
+    try {
+        const tickets = await getTickets();
+        await printListTickets(tickets);
+        res.json(tickets);
+    } catch (error) {
+        res.status(401).json({
+            success: false,
+            error: 'Нет прав доступа',
+        });
+    }
 });
 
 app.get('/tickets', auth, (req, res) => {

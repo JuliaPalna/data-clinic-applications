@@ -9,11 +9,13 @@ import {
     Alert,
     AlertDescription,
     Center,
+    SearchByPhone,
 } from '@/components';
 import { useTicketsPage } from './useTicketsPage';
 
 export const TicketsPage: React.FC = () => {
-    const { tickets, error, isLoading } = useTicketsPage();
+    const { filteredTickets, error, isLoading, onSearchByPhone } =
+        useTicketsPage();
 
     if (isLoading) {
         return (
@@ -37,6 +39,7 @@ export const TicketsPage: React.FC = () => {
 
     return (
         <>
+            <SearchByPhone onSearch={onSearchByPhone} />
             <Title>Список заявок</Title>
 
             <Table>
@@ -48,9 +51,9 @@ export const TicketsPage: React.FC = () => {
                         <TableHead>Проблема</TableHead>
                     </TableRow>
                 </TableHeader>
-                {tickets.length > 0 && (
+                {filteredTickets.length > 0 && (
                     <TableBody>
-                        {tickets.map((ticket) => {
+                        {filteredTickets.map((ticket) => {
                             return (
                                 <TableRow key={ticket.id}>
                                     <TableCell className="font-medium">

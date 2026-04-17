@@ -7,8 +7,6 @@ function App() {
     useEffect(() => {
         const sessionAuth = sessionStorage.getItem('isAuthorization');
 
-        console.log(!sessionAuth);
-
         if (!sessionAuth) {
             logoutApi();
         }
