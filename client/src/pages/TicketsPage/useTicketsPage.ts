@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { searchTicketsByPhone, sortTicketsByName } from './utils';
 import { type Ticket, getTickets } from '@/entities';
 
 export const useTicketsPage = () => {
@@ -7,17 +8,44 @@ export const useTicketsPage = () => {
     const [isLoading, setIsLoading] = useState<boolean>(true);
 
     const [filteredTickets, setFilteredTickets] = useState<Ticket[]>(tickets);
+    const [isSortByName, setIsSortByName] = useState<boolean>(false);
+    const [searchValueByPhone, setSearchValueByPhone] = useState<string>('');
 
-    const onSearchByPhone = ({ searchValue }: { searchValue: string }) => {
-        if (tickets.length === 0) {
-            return;
+    const onFilteredTickets = ({
+        isSort,
+        searchValue,
+    }: {
+        isSort: boolean;
+        searchValue: string;
+    }) => {
+        let newTickets = [...tickets];
+
+        if (isSort) {
+            newTickets = sortTicketsByName(newTickets);
         }
 
-        const existedTickets: Ticket[] = tickets.filter((ticket) => {
-            return ticket.phone.includes(searchValue);
-        });
+        if (searchValue) {
+            newTickets = searchTicketsByPhone({
+                array: newTickets,
+                searchValue,
+            });
+        }
 
-        setFilteredTickets(existedTickets);
+        setFilteredTickets(newTickets);
+    };
+
+    const onSort = (value: boolean) => {
+        const valueSort = value;
+        setIsSortByName(valueSort);
+        onFilteredTickets({
+            isSort: valueSort,
+            searchValue: searchValueByPhone,
+        });
+    };
+
+    const onSearch = (value: string) => {
+        setSearchValueByPhone(value);
+        onFilteredTickets({ searchValue: value, isSort: isSortByName });
     };
 
     useEffect(() => {
@@ -38,5 +66,13 @@ export const useTicketsPage = () => {
             });
     }, []);
 
-    return { filteredTickets, error, isLoading, onSearchByPhone };
+    return {
+        filteredTickets,
+        error,
+        isLoading,
+        isSort: isSortByName,
+        searchValue: searchValueByPhone,
+        onSort,
+        onSearch,
+    };
 };

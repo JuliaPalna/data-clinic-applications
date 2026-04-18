@@ -1,3 +1,4 @@
 export interface SearchByPhoneProps {
-    onSearch: ({ searchValue }: { searchValue: string }) => void;
+    searchValue: string;
+    onSearch: (value: string) => void;
 }

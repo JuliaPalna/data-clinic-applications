@@ -1,12 +1,12 @@
-import { Field, FieldLabel } from '../ui';
 import { IMaskInput } from 'react-imask';
+import { Field, FieldLabel } from '../ui';
 import { cn } from '@/lib/utils';
 import type { SearchByPhoneProps } from './type';
-import { useSearchByPhone } from './useSearchByPhone';
 
-export const SearchByPhone: React.FC<SearchByPhoneProps> = ({ onSearch }) => {
-    const { searchValue, onChangeSearchValue } = useSearchByPhone({ onSearch });
-
+export const SearchByPhone: React.FC<SearchByPhoneProps> = ({
+    searchValue,
+    onSearch,
+}) => {
     return (
         <div>
             <Field>
@@ -21,7 +21,7 @@ export const SearchByPhone: React.FC<SearchByPhoneProps> = ({ onSearch }) => {
                     type="tel"
                     mask="+7-000-000-00-00"
                     lazy={true}
-                    onAccept={(value) => onChangeSearchValue(value)}
+                    onAccept={(value) => onSearch(value)}
                     autoComplete="off"
                     className={cn(`h-8 w-full min-w-0 rounded-lg border border-input bg-transparent
                     px-2.5 py-1 text-base transition-colors outline-none placeholder:text-muted-foreground

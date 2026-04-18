@@ -10,12 +10,21 @@ import {
     AlertDescription,
     Center,
     SearchByPhone,
+    FieldGroup,
+    SortByName,
 } from '@/components';
 import { useTicketsPage } from './useTicketsPage';
 
 export const TicketsPage: React.FC = () => {
-    const { filteredTickets, error, isLoading, onSearchByPhone } =
-        useTicketsPage();
+    const {
+        filteredTickets,
+        error,
+        isLoading,
+        isSort,
+        searchValue,
+        onSort,
+        onSearch,
+    } = useTicketsPage();
 
     if (isLoading) {
         return (
@@ -39,7 +48,11 @@ export const TicketsPage: React.FC = () => {
 
     return (
         <>
-            <SearchByPhone onSearch={onSearchByPhone} />
+            <FieldGroup className="max-w-sm">
+                <SearchByPhone searchValue={searchValue} onSearch={onSearch} />
+                <SortByName isSort={isSort} onSort={onSort} />
+            </FieldGroup>
+
             <Title>Список заявок</Title>
 
             <Table>
