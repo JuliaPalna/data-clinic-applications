@@ -35,10 +35,9 @@ export const useTicketsPage = () => {
     };
 
     const onSort = (value: boolean) => {
-        const valueSort = value;
-        setIsSortByName(valueSort);
+        setIsSortByName(value);
         onFilteredTickets({
-            isSort: valueSort,
+            isSort: value,
             searchValue: searchValueByPhone,
         });
     };

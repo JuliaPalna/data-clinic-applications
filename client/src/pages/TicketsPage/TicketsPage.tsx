@@ -47,8 +47,8 @@ export const TicketsPage: React.FC = () => {
     }
 
     return (
-        <>
-            <FieldGroup className="max-w-sm">
+        <div className="min-h-[calc(100vh-100px)] flex flex-col">
+            <FieldGroup className="max-w-sm py-10">
                 <SearchByPhone searchValue={searchValue} onSearch={onSearch} />
                 <SortByName isSort={isSort} onSort={onSort} />
             </FieldGroup>
@@ -83,12 +83,12 @@ export const TicketsPage: React.FC = () => {
             </Table>
 
             {error && (
-                <div className="mt-10 ">
+                <div>
                     <Alert className="max-w-md">
                         <AlertDescription>{error}</AlertDescription>
                     </Alert>
                 </div>
             )}
-        </>
+        </div>
     );
 };

@@ -13,14 +13,13 @@ export default defineConfig({
     },
 
     // CORS
-    server: {
-        port: 5173,
-        proxy: {
-            '/api': {
-                target: 'http://localhost:3004',
-                changeOrigin: true,
-                // rewrite: (path) => path.replace(/^\/api/, ''),
-            },
-        },
-    },
+    // server: {
+    //     port: 5173,
+    //     proxy: {
+    //         '/api': {
+    //             target: 'http://localhost:3004',
+    //             changeOrigin: true,
+    //         },
+    //     },
+    // },
 });

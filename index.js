@@ -27,6 +27,8 @@ app.use(express.urlencoded({ extended: true }));
 // Парсит cookies, переданные клиентом в заголовках запросов
 app.use(cookieParser());
 
+app.use(express.static(path.resolve(__dirname, 'client/dist')));
+
 app.post('/api/login', async (req, res) => {
     try {
         const token = await login({
@@ -105,8 +107,6 @@ app.get('/tickets', auth, (req, res) => {
         });
     }
 });
-
-app.use(express.static(path.resolve(__dirname, 'client/dist')));
 
 mongoose
     .connect(

@@ -5,12 +5,6 @@ const { JWT_SECRET } = require('../constants/index.js');
 function auth(req, res, next) {
     const token = req.cookies.token;
 
-    if (!token) {
-        res.status(401).json({ error: 'Пользователь не авторизован' });
-        console.log(chalk.bgRed('No token provided'));
-        return;
-    }
-
     try {
         const verifyResult = jwt.verify(token, JWT_SECRET);
 
@@ -20,10 +14,14 @@ function auth(req, res, next) {
 
         next();
     } catch (error) {
-        res.status(404).json({
-            success: false,
-            error: 'Ошибка 404: Страница не найдена',
-        });
+        if (req.path.startsWith('/api')) {
+            res.status(401).json({
+                success: false,
+                error: 'Пользователь не авторизован',
+            });
+        }
+
+        return res.redirect('/');
     }
 }
 
