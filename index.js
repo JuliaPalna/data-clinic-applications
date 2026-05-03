@@ -16,6 +16,7 @@ const {
 } = require('./server/controllers/ticket.controller');
 const { login } = require('./server/controllers/user.controller');
 const auth = require('./server/middleware/auth');
+const { errorHandler, asyncHandler } = require('./server/middleware/errorHandler');
 
 const app = express();
 
@@ -29,83 +30,41 @@ app.use(cookieParser());
 
 app.use(express.static(path.resolve(__dirname, 'client/dist')));
 
-app.post('/api/login', async (req, res) => {
-    try {
-        const token = await login({
-            email: req.body.email,
-            password: req.body.password,
-        });
-        res.cookie('token', token, { httpOnly: true });
-        res.json({
-            success: true,
-        });
-    } catch (error) {
-        res.status(401).json({
-            success: false,
-            error: error instanceof Error ? error.message : String(error),
-        });
-    }
-});
+app.post('/api/login', asyncHandler(async (req, res) => {
+    const token = await login({
+        email: req.body.email,
+        password: req.body.password,
+    });
+    res.cookie('token', token, { httpOnly: true });
+    res.json({
+        success: true,
+    });
+}));
 
 app.get('/login', (req, res) => {
-    try {
-        res.sendFile(path.join(__dirname, 'client/dist', 'index.html'));
-    } catch (error) {
-        res.status(404).json({
-            success: false,
-            error: 'Ошибка 404: Страница не найдена',
-        });
-    }
+    res.sendFile(path.join(__dirname, 'client/dist', 'index.html'));
 });
 
-app.post('/api/logout', (req, res) => {
-    try {
-        res.cookie('token', '', { httpOnly: true });
-        res.status(200).json({ success: true });
-    } catch (error) {
-        res.status(500).json({
-            success: false,
-            error: 'Ошибка при выходе. Повторите позже',
-        });
-    }
-});
+app.post('/api/logout', asyncHandler(async (req, res) => {
+    res.cookie('token', '', { httpOnly: true });
+    res.status(200).json({ success: true });
+}));
 
-app.post('/api/tickets', async (req, res) => {
-    try {
-        const newTicket = await addTicket(req.body);
-        res.json(newTicket);
-    } catch (error) {
-        res.status(404).json({
-            success: false,
-            error: 'Страница не найдена',
-        });
-    }
-});
+app.post('/api/tickets', asyncHandler(async (req, res) => {
+    const newTicket = await addTicket(req.body);
+    res.json(newTicket);
+}));
 
 app.use(auth);
 
-app.get('/api/tickets', auth, async (req, res) => {
-    try {
-        const tickets = await getTickets();
-        await printListTickets(tickets);
-        res.json(tickets);
-    } catch (error) {
-        res.status(401).json({
-            success: false,
-            error: 'Нет прав доступа',
-        });
-    }
-});
+app.get('/api/tickets', auth, asyncHandler(async (req, res) => {
+    const tickets = await getTickets();
+    await printListTickets(tickets);
+    res.json(tickets);
+}));
 
 app.get('/tickets', auth, (req, res) => {
-    try {
-        res.sendFile(path.join(__dirname, 'client/dist', 'index.html'));
-    } catch (error) {
-        res.status(401).json({
-            success: false,
-            error: 'Нет прав доступа',
-        });
-    }
+    res.sendFile(path.join(__dirname, 'client/dist', 'index.html'));
 });
 
 mongoose
@@ -118,4 +77,11 @@ mongoose
                 chalk.green(`Server is running on http://localhost:${PORT}`),
             );
         });
+    })
+    .catch((error) => {
+        console.error(chalk.red('Failed to connect to MongoDB:'), error.message);
+        process.exit(1);
     });
+
+// Глобальный обработчик ошибок должен быть последним middleware
+app.use(errorHandler);
