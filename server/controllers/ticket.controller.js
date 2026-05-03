@@ -2,12 +2,13 @@ const { default: chalk } = require('chalk');
 const Ticket = require('../models/Ticket.js');
 
 async function addTicket(data) {
-    await Ticket.create({ ...data, date: Date.now() });
+    const ticket = await Ticket.create({ ...data, date: new Date() });
     console.log(chalk.bgGreen('Ticket add'));
+    return ticket;
 }
 
 async function getTickets() {
-    return await Ticket.find();
+    return await Ticket.find().sort({ date: -1 });
 }
 
 async function printListTickets() {

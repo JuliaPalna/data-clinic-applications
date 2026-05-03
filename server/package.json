@@ -1,0 +1,52 @@
+{
+    "name": "backend-clinic",
+    "version": "1.0.0",
+    "description": "backend-clinic-tickets",
+    "scripts": {
+        "start": "node index.js",
+        "serve": "nodemon index.js",
+        "test": "jest --coverage --detectOpenHandles --forceExit",
+        "test:watch": "jest --watch",
+        "test:unit": "jest tests/unit --coverage",
+        "test:integration": "jest tests/integration --coverage"
+    },
+    "dependencies": {
+        "bcrypt": "^6.0.0",
+        "chalk": "^5.6.2",
+        "cookie-parser": "^1.4.7",
+        "dotenv": "^17.4.2",
+        "express": "^5.2.1",
+        "joi": "^18.1.2",
+        "jsonwebtoken": "^9.0.3",
+        "mongoose": "^9.4.1",
+        "validator": "^13.15.35"
+    },
+    "devDependencies": {
+        "jest": "^30.3.0",
+        "mongodb-memory-server": "^10.1.4",
+        "supertest": "^7.2.2"
+    },
+    "jest": {
+        "testEnvironment": "node",
+        "setupFilesAfterEnv": ["./tests/setup.js"],
+        "testMatch": ["**/tests/**/*.test.js"],
+        "collectCoverageFrom": [
+            "models/**/*.js",
+            "controllers/**/*.js",
+            "routes/**/*.js",
+            "middleware/**/*.js",
+            "utils/**/*.js",
+            "!**/node_modules/**"
+        ],
+        "coverageThreshold": {
+            "global": {
+                "branches": 70,
+                "functions": 70,
+                "lines": 70,
+                "statements": 70
+            }
+        },
+        "coverageReporters": ["text", "lcov", "html"],
+        "verbose": true
+    }
+}

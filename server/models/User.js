@@ -6,14 +6,17 @@ const UserSchema = mongoose.Schema({
         type: String,
         required: true,
         unique: true,
+        lowercase: true,
+        trim: true,
         validate: {
             validator: validator.isEmail,
-            message: 'Неверный пароль',
+            message: 'Неверный формат email',
         },
     },
     password: {
         type: String,
         required: true,
+        minlength: [4, 'Пароль должен содержать минимум 4 символа'],
     },
 });
 
